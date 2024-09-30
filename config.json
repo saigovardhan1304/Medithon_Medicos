@@ -1,0 +1,17 @@
+{
+  "params":
+  {
+   "local_server": "True",
+    "local_uri": "mysql://root:@localhost/medical_management",
+    "proud_uri": "mysql://root:@localhost/medical_management",
+    "fb_url":"",
+    "tw_url":"",
+    "gh_url":"",
+    "blog_name": "MEDITHON-2024",
+    "headname": "MEDITHON DATA TRANSFER",
+    "user": "test",
+    "password": "test",
+    "login_image": "aple.jpg"
+
+  }
+}

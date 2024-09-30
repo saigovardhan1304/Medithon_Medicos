@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<header class="masthead mb-0" style="background-image: url('{{url_for('static',filename='img/home-bg.jpg')}})">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>{{params['headname']}}</h1>
+                    <span class="subheading">Receive Patient Data</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container">
+    <h2>RECEIVE DATA</h2>
+    
+    <form name="receiveDataForm" id="receiveDataForm" action="/receive" method="post">
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <label>Patient ID</label>
+                <input type="number" name="patient_id" class="form-control" placeholder="Enter Patient ID" required data-validation-required-message="Please enter Patient ID.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <label>Patient Name</label>
+                <input type="text" name="patient_name" class="form-control" placeholder="Enter Patient Name" required data-validation-required-message="Please enter Patient Name.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+                <select name="department" id="department" class="form-control" required>
+                    <option value="" disabled selected>Select Department To Receive From</option>
+                    <option value="Emergency">Emergency</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Radiology">Radiology</option>
+                    <option value="Oncology">Oncology</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Gynecology">Gynecology</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="ENT">ENT (Ear, Nose, Throat)</option>
+                    <option value="Urology">Urology</option>
+                    <option value="Gastroenterology">Gastroenterology</option>
+                    <option value="Psychiatry">Psychiatry</option>
+                    <option value="Anesthesiology">Anesthesiology</option>
+                    <option value="Pathology">Pathology</option>
+                    <option value="Nephrology">Nephrology</option>
+                    <option value="Pulmonology">Pulmonology</option>
+                    <option value="Endocrinology">Endocrinology</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="receiveButton">RECEIVE DATA</button>
+        </div>
+        
+        <div class="form-group">
+            {% if received_data %}
+                <a href="{{ url_for('download_encrypted', patient_id=received_data.patient_id) }}" class="btn btn-secondary">Download Decrypted Data</a>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="feedback">Feedback</label>
+            <textarea name="feedback" class="form-control" id="feedback" rows="3" placeholder="Any feedback on the received data"></textarea>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
